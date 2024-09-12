@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Filter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Employee Directory</h1>
+            <div class="filters">
+                <label for="college-filter">Filter by College:</label>
+                <select id="college-filter">
+                    <option value="">All Colleges</option>
+                    <option value="Harvard">Harvard</option>
+                    <option value="Stanford">Stanford</option>
+                    <option value="MIT">MIT</option>
+                    <option value="VIT Vellore">VIT Vellore</option>
+                </select>
+
+                <label for="role-filter">Filter by Role:</label>
+                <select id="role-filter">
+                    <option value="">All Roles</option>
+                    <option value="Frontend Developer">Frontend Developer</option>
+                    <option value="Backend Developer">Backend Developer</option>
+                    <option value="Full Stack Developer">Full Stack Developer</option>
+                    <option value="Mobile Application Developer">Mobile Application Developer</option>
+                </select>
+            </div>
+        </header>
+        
+        <div id="employee-list" class="employee-list">
+            <!-- Employee items will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    background: #007bff;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.filters label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.filters select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.employee-list {
+    margin-top: 20px;
+}
+
+.employee-item {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.employee-item img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+}
+
+.employee-item h3 {
+    margin: 0 0 5px;
+}
+
+.employee-item p {
+    margin: 5px 0;
+}
+
+@media (max-width: 600px) {
+    .filters {
+        flex-direction: column;
+    }
+
+    .filters label {
+        margin-bottom: 5px;
+    }
+
+    .employee-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .employee-item img {
+        margin-bottom: 10px;
+    }
+}
+
+</style>
+<script>
+const employees = [
+    { name: "Thiyagu", college: "VIT Vellore", role: "Frontend Developer", location: "New York", email: "thiyaguai2004@.com", pic: "img.jpg" },
+    { name: "Bob Johnson", college: "Stanford", role: "Backend Developer", location: "San Francisco", email: "bob.johnson@example.com", pic: "https://via.placeholder.com/80?text=Bob" },
+    { name: "Charlie Brown", college: "MIT", role: "Full Stack Developer", location: "Boston", email: "charlie.brown@example.com", pic: "https://via.placeholder.com/80?text=Charlie" },
+    { name: "David Lee", college: "UC Berkeley", role: "Data Scientist", location: "Seattle", email: "david.lee@example.com", pic: "https://via.placeholder.com/80?text=David" },
+    { name: "Emma Davis", college: "Princeton", role: "UX Designer", location: "Chicago", email: "emma.davis@example.com", pic: "https://via.placeholder.com/80?text=Emma" },
+    { name: "Frank Wilson", college: "Yale", role: "DevOps Engineer", location: "Austin", email: "frank.wilson@example.com", pic: "https://via.placeholder.com/80?text=Frank" },
+    { name: "Grace Martin", college: "Columbia", role: "Mobile Developer", location: "Los Angeles", email: "grace.martin@example.com", pic: "https://via.placeholder.com/80?text=Grace" },
+    { name: "Henry Adams", college: "Caltech", role: "System Administrator", location: "San Diego", email: "henry.adams@example.com", pic: "https://via.placeholder.com/80?text=Henry" },
+    { name: "Ivy Baker", college: "University of Chicago", role: "Cloud Engineer", location: "Denver", email: "ivy.baker@example.com", pic: "https://via.placeholder.com/80?text=Ivy" },
+    { name: "Jack Clark", college: "Cornell", role: "Security Analyst", location: "Miami", email: "jack.clark@example.com", pic: "https://via.placeholder.com/80?text=Jack" },
+    { name: "Karen Lewis", college: "Georgia Tech", role: "Machine Learning Engineer", location: "Atlanta", email: "karen.lewis@example.com", pic: "https://via.placeholder.com/80?text=Karen" },
+    { name: "Liam Walker", college: "Duke", role: "Robotics Engineer", location: "Philadelphia", email: "liam.walker@example.com", pic: "https://via.placeholder.com/80?text=Liam" },
+    { name: "Mia Hall", college: "Johns Hopkins", role: "Software Engineer", location: "Baltimore", email: "mia.hall@example.com", pic: "https://via.placeholder.com/80?text=Mia" },
+    { name: "Noah King", college: "Northwestern", role: "QA Engineer", location: "Houston", email: "noah.king@example.com", pic: "https://via.placeholder.com/80?text=Noah" },
+    { name: "Olivia Allen", college: "University of Michigan", role: "Network Engineer", location: "Detroit", email: "olivia.allen@example.com", pic: "https://via.placeholder.com/80?text=Olivia" },
+    { name: "Peter Young", college: "University of Texas", role: "Technical Writer", location: "Dallas", email: "peter.young@example.com", pic: "https://via.placeholder.com/80?text=Peter" },
+    { name: "Quinn Scott", college: "University of California", role: "Game Developer", location: "San Jose", email: "quinn.scott@example.com", pic: "https://via.placeholder.com/80?text=Quinn" },
+    { name: "Rachel Adams", college: "University of Washington", role: "IT Consultant", location: "Portland", email: "rachel.adams@example.com", pic: "https://via.placeholder.com/80?text=Rachel" },
+    { name: "Samuel Mitchell", college: "Brown University", role: "Research Scientist", location: "New Orleans", email: "samuel.mitchell@example.com", pic: "https://via.placeholder.com/80?text=Samuel" },
+    { name: "Tina Harris", college: "University of Wisconsin", role: "Web Developer", location: "Minneapolis", email: "tina.harris@example.com", pic: "https://via.placeholder.com/80?text=Tina" },
+    { name: "Uma Nelson", college: "MIT", role: "Product Manager", location: "Boston", email: "uma.nelson@example.com", pic: "https://via.placeholder.com/80?text=Uma" },
+    { name: "Victor Ramirez", college: "Stanford", role: "Business Analyst", location: "San Francisco", email: "victor.ramirez@example.com", pic: "https://via.placeholder.com/80?text=Victor" },
+    { name: "Wendy Robinson", college: "Harvard", role: "Data Analyst", location: "New York", email: "wendy.robinson@example.com", pic: "https://via.placeholder.com/80?text=Wendy" },
+    { name: "Xavier Martinez", college: "Princeton", role: "Software Architect", location: "Chicago", email: "xavier.martinez@example.com", pic: "https://via.placeholder.com/80?text=Xavier" },
+    { name: "Yara Collins", college: "Columbia", role: "Full Stack Engineer", location: "Los Angeles", email: "yara.collins@example.com", pic: "https://via.placeholder.com/80?text=Yara" },
+    { name: "Zachary Murphy", college: "Yale", role: "Frontend Engineer", location: "Austin", email: "zachary.murphy@example.com", pic: "https://via.placeholder.com/80?text=Zachary" },
+    { name: "Alice Moore", college: "Caltech", role: "Backend Engineer", location: "San Diego", email: "alice.moore@example.com", pic: "https://via.placeholder.com/80?text=Alice" },
+    { name: "Brian Reed", college: "Georgia Tech", role: "Cloud Architect", location: "Denver", email: "brian.reed@example.com", pic: "https://via.placeholder.com/80?text=Brian" },
+    { name: "Cindy Evans", college: "Johns Hopkins", role: "Data Engineer", location: "Baltimore", email: "cindy.evans@example.com", pic: "https://via.placeholder.com/80?text=Cindy" },
+    { name: "Daniel Lewis", college: "Cornell", role: "Mobile Application Developer", location: "Philadelphia", email: "daniel.lewis@example.com", pic: "https://via.placeholder.com/80?text=Daniel" },
+    { name: "Emily Green", college: "University of Chicago", role: "UX Researcher", location: "Houston", email: "emily.green@example.com", pic: "https://via.placeholder.com/80?text=Emily" },
+    { name: "Frank Turner", college: "Northwestern", role: "UI Designer", location: "Detroit", email: "frank.turner@example.com", pic: "https://via.placeholder.com/80?text=Frank" },
+    { name: "Georgia Thompson", college: "University of Michigan", role: "DevOps Specialist", location: "Dallas", email: "georgia.thompson@example.com", pic: "https://via.placeholder.com/80?text=Georgia" },
+    { name: "Henry Scott", college: "University of Texas", role: "Systems Analyst", location: "San Jose", email: "henry.scott@example.com", pic: "https://via.placeholder.com/80?text=Henry" },
+    { name: "Isabel Lee", college: "University of California", role: "IT Support Specialist", location: "Portland", email: "isabel.lee@example.com", pic: "https://via.placeholder.com/80?text=Isabel" },
+    { name: "James White", college: "University of Washington", role: "Embedded Systems Engineer", location: "New Orleans", email: "james.white@example.com", pic: "https://via.placeholder.com/80?text=James" },
+    { name: "Kelly Harris", college: "Brown University", role: "Business Intelligence Analyst", location: "Minneapolis", email: "kelly.harris@example.com", pic: "https://via.placeholder.com/80?text=Kelly" },
+    { name: "Liam Martinez", college: "MIT", role: "Application Developer", location: "Boston", email: "liam.martinez@example.com", pic: "https://via.placeholder.com/80?text=Liam" },
+    { name: "Monica Garcia", college: "Stanford", role: "Product Designer", location: "San Francisco", email: "monica.garcia@example.com", pic: "https://via.placeholder.com/80?text=Monica" },
+    { name: "Nathan Clark", college: "Harvard", role: "IT Project Manager", location: "New York", email: "nathan.clark@example.com", pic: "https://via.placeholder.com/80?text=Nathan" },
+    { name: "Olivia Wilson", college: "Princeton", role: "Big Data Engineer", location: "Chicago", email: "olivia.wilson@example.com", pic: "https://via.placeholder.com/80?text=Olivia" },
+    { name: "Paul Turner", college: "Columbia", role: "Cloud Solutions Architect", location: "Los Angeles", email: "paul.turner@example.com", pic: "https://via.placeholder.com/80?text=Paul" },
+    { name: "Quinn Davis", college: "Yale", role: "Security Engineer", location: "Austin", email: "quinn.davis@example.com", pic: "https://via.placeholder.com/80?text=Quinn" },
+    { name: "Rachel Adams", college: "Caltech", role: "Technical Lead", location: "San Diego", email: "rachel.adams@example.com", pic: "https://via.placeholder.com/80?text=Rachel" },
+    { name: "Sean Lewis", college: "Georgia Tech", role: "DevOps Consultant", location: "Denver", email: "sean.lewis@example.com", pic: "https://via.placeholder.com/80?text=Sean" },
+    { name: "Tina Rodriguez", college: "Johns Hopkins", role: "Software Developer", location: "Baltimore", email: "tina.rodriguez@example.com", pic: "https://via.placeholder.com/80?text=Tina" },
+    { name: "Umar Walker", college: "Cornell", role: "Automation Engineer", location: "Philadelphia", email: "umar.walker@example.com", pic: "https://via.placeholder.com/80?text=Umar" },
+    { name: "Victoria Young", college: "University of Chicago", role: "Systems Engineer", location: "Houston", email: "victoria.young@example.com", pic: "https://via.placeholder.com/80?text=Victoria" },
+    { name: "William Harris", college: "Northwestern", role: "Digital Marketing Analyst", location: "Detroit", email: "william.harris@example.com", pic: "https://via.placeholder.com/80?text=William" },
+    { name: "Xena Brown", college: "University of Michigan", role: "IT Manager", location: "Dallas", email: "xena.brown@example.com", pic: "https://via.placeholder.com/80?text=Xena" },
+    { name: "Yvonne Scott", college: "University of Texas", role: "Backend Developer", location: "San Jose", email: "yvonne.scott@example.com", pic: "https://via.placeholder.com/80?text=Yvonne" },
+    { name: "Zachary Davis", college: "University of California", role: "Network Administrator", location: "Portland", email: "zachary.davis@example.com", pic: "https://via.placeholder.com/80?text=Zachary" },
+    { name: "Amy Martinez", college: "University of Washington", role: "Cloud Developer", location: "New Orleans", email: "amy.martinez@example.com", pic: "https://via.placeholder.com/80?text=Amy" },
+    { name: "Brandon Collins", college: "Brown University", role: "Embedded Software Engineer", location: "Minneapolis", email: "brandon.collins@example.com", pic: "https://via.placeholder.com/80?text=Brandon" },
+    { name: "Chloe Thompson", college: "MIT", role: "Technical Analyst", location: "Boston", email: "chloe.thompson@example.com", pic: "https://via.placeholder.com/80?text=Chloe" },
+    { name: "Derek Harris", college: "Stanford", role: "Mobile Engineer", location: "San Francisco", email: "derek.harris@example.com", pic: "https://via.placeholder.com/80?text=Derek" },
+    { name: "Ella Walker", college: "Harvard", role: "Database Administrator", location: "New York", email: "ella.walker@example.com", pic: "https://via.placeholder.com/80?text=Ella" },
+    { name: "Fiona Green", college: "Princeton", role: "Site Reliability Engineer", location: "Chicago", email: "fiona.green@example.com", pic: "https://via.placeholder.com/80?text=Fiona" },
+    { name: "George White", college: "Columbia", role: "Web Application Developer", location: "Los Angeles", email: "george.white@example.com", pic: "https://via.placeholder.com/80?text=George" },
+    { name: "Hannah Young", college: "Yale", role: "Full Stack Developer", location: "Austin", email: "hannah.young@example.com", pic: "https://via.placeholder.com/80?text=Hannah" },
+    { name: "Ian Evans", college: "Caltech", role: "UI/UX Designer", location: "San Diego", email: "ian.evans@example.com", pic: "https://via.placeholder.com/80?text=Ian" },
+    { name: "Jasmine Scott", college: "Georgia Tech", role: "Data Scientist", location: "Denver", email: "jasmine.scott@example.com", pic: "https://via.placeholder.com/80?text=Jasmine" },
+    { name: "Kyle Martinez", college: "Johns Hopkins", role: "IT Consultant", location: "Baltimore", email: "kyle.martinez@example.com", pic: "https://via.placeholder.com/80?text=Kyle" },
+    { name: "Laura Reed", college: "Cornell", role: "Business Systems Analyst", location: "Philadelphia", email: "laura.reed@example.com", pic: "https://via.placeholder.com/80?text=Laura" },
+    { name: "Matt Lewis", college: "University of Chicago", role: "Cloud Engineer", location: "Houston", email: "matt.lewis@example.com", pic: "https://via.placeholder.com/80?text=Matt" },
+    { name: "Nicole Murphy", college: "Northwestern", role: "Research Analyst", location: "Detroit", email: "nicole.murphy@example.com", pic: "https://via.placeholder.com/80?text=Nicole" },
+    { name: "Oliver Baker", college: "University of Michigan", role: "QA Specialist", location: "Dallas", email: "oliver.baker@example.com", pic: "https://via.placeholder.com/80?text=Oliver" },
+    { name: "Penny Roberts", college: "University of Texas", role: "IT Specialist", location: "San Jose", email: "penny.roberts@example.com", pic: "https://via.placeholder.com/80?text=Penny" },
+    { name: "Quentin Harris", college: "University of California", role: "Technical Project Manager", location: "Portland", email: "quentin.harris@example.com", pic: "https://via.placeholder.com/80?text=Quentin" },
+    { name: "Rachel Clark", college: "University of Washington", role: "Product Designer", location: "New Orleans", email: "rachel.clark@example.com", pic: "https://via.placeholder.com/80?text=Rachel" },
+    { name: "Steve Miller", college: "Brown University", role: "Systems Administrator", location: "Minneapolis", email: "steve.miller@example.com", pic: "https://via.placeholder.com/80?text=Steve" },
+    { name: "Tara Adams", college: "MIT", role: "Software Engineer", location: "Boston", email: "tara.adams@example.com", pic: "https://via.placeholder.com/80?text=Tara" },
+    { name: "Ursula Lewis", college: "Stanford", role: "IT Manager", location: "San Francisco", email: "ursula.lewis@example.com", pic: "https://via.placeholder.com/80?text=Ursula" },
+    { name: "Victor King", college: "Harvard", role: "DevOps Architect", location: "New York", email: "victor.king@example.com", pic: "https://via.placeholder.com/80?text=Victor" },
+    { name: "Wendy Harris", college: "Princeton", role: "Security Consultant", location: "Chicago", email: "wendy.harris@example.com", pic: "https://via.placeholder.com/80?text=Wendy" },
+    { name: "Xavier Robinson", college: "Columbia", role: "Data Engineer", location: "Los Angeles", email: "xavier.robinson@example.com", pic: "https://via.placeholder.com/80?text=Xavier" },
+    { name: "Yvonne Scott", college: "Yale", role: "Technical Lead", location: "Austin", email: "yvonne.scott@example.com", pic: "https://via.placeholder.com/80?text=Yvonne" },
+    { name: "Zach Thompson", college: "Caltech", role: "Software Developer", location: "San Diego", email: "zach.thompson@example.com", pic: "https://via.placeholder.com/80?text=Zach" }
+];
+
+function renderEmployees(filterCollege, filterRole) {
+    const employeeList = document.getElementById('employee-list');
+    employeeList.innerHTML = '';
+
+    employees
+        .filter(emp => (!filterCollege || emp.college === filterCollege) && (!filterRole || emp.role === filterRole))
+        .forEach(emp => {
+            const employeeItem = document.createElement('div');
+            employeeItem.className = 'employee-item';
+            employeeItem.innerHTML = `
+                <img src="${emp.pic}" alt="${emp.name}">
+                <div class="employee-info">
+                    <h3>${emp.name}</h3>
+                    <p><strong>College:</strong> ${emp.college}</p>
+                    <p><strong>Role:</strong> ${emp.role}</p>
+                    <p><strong>Location:</strong> ${emp.location}</p>
+                    <p><strong>email:</strong>${emp.email}</p>
+                </div>
+            `;
+            employeeList.appendChild(employeeItem);
+        });
+}
+
+document.getElementById('college-filter').addEventListener('change', (event) => {
+    const college = event.target.value;
+    const role = document.getElementById('role-filter').value;
+    renderEmployees(college, role);
+});
+
+document.getElementById('role-filter').addEventListener('change', (event) => {
+    const role = event.target.value;
+    const college = document.getElementById('college-filter').value;
+    renderEmployees(college, role);
+});
+
+// Initial render
+renderEmployees();
+
+</script>
+</html>
