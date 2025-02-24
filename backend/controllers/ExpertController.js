@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import ExpertModel from "../models/ExpertModel.js";
 import appointmentModel from "../models/appointmentModel.js";
 
-// API for doctor Login 
 const loginDoctor = async (req, res) => {
 
     try {
